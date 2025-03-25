@@ -25,7 +25,7 @@ app.add_middleware(
 # 라우터 등록
 app.include_router(s3_router.router, prefix="/s3", tags=["S3"])
 app.include_router(upload.router)
-app.include_router(database.router)#database 라우터 등록
+app.include_router(database.router)
 @app.get("/")
 def read_root():
     return {"message": "Hello from new FastAPI environment!"}

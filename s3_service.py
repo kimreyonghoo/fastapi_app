@@ -3,25 +3,21 @@ import os
 from internal.aws_config import s3_client, S3_BUCKET_NAME  # ✅ aws_config에서 S3_BUCKET_NAME 가져오기
 from dotenv import load_dotenv
 from botocore.exceptions import NoCredentialsError
+from internal.aws_config import aws_access
 
 # .env 파일 로드
 load_dotenv()
 
 # S3 설정
-AWS_ACCESS_KEY_ID = os.getenv("AKIA4MI2JTV235FBXI4D")
-AWS_SECRET_ACCESS_KEY = os.getenv("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")
-AWS_REGION = os.getenv("ap-southeast-2")
-AWS_S3_BUCKET_NAME = os.getenv("fastapi-app-koreatech-bucket")
 
 
 # S3 클라이언트 생성
 s3_client = boto3.client(
     "s3",
-    aws_access_key_id=AWS_ACCESS_KEY_ID,
-    aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
-    region_name=AWS_REGION,
+    region_name=aws_access['region_ap'],
+    aws_access_key_id=aws_access['aws_access_key_id'],
+    aws_secret_access_key=aws_access['aws_secret_access_key']
 )
-
 # ✅ S3 업로드 함수
 def upload_file_to_s3(file_path: str, file_name: str):
     try:

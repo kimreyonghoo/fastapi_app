@@ -2,23 +2,23 @@ from fastapi import APIRouter, File, UploadFile, HTTPException
 import boto3
 import os
 from dotenv import load_dotenv
+from internal.aws_config import aws_access
 
 load_dotenv()  # 환경 변수 로드
 
 router = APIRouter()
 
 # AWS S3 설정
-AWS_ACCESS_KEY = os.getenv("AKIA4MI2JTV235FBXI4D")
-AWS_SECRET_KEY = os.getenv("m1xZt/q6Px2DLnTIDRpagmyNX0T6qWuZUeDrrly")
+
 S3_BUCKET_NAME = "fastapi-app-koreatech-bucket"
 S3_REGION = "ap-southeast-2"  # 서울 리전 예시
 
 # S3 클라이언트 생성
 s3_client = boto3.client(
     "s3",
-    aws_access_key_id=AWS_ACCESS_KEY,
-    aws_secret_access_key=AWS_SECRET_KEY,
-    region_name=S3_REGION,
+    region_name=aws_access['region_ap'],
+    aws_access_key_id=aws_access['aws_access_key_id'],
+    aws_secret_access_key=aws_access['aws_secret_access_key']
 )
 
 @router.post("/upload")
