@@ -20,11 +20,8 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            sudo apt update && sudo apt install -y git
-            if [ ! -d "~/fastapi-app" ]; then
+            if [ ! -d "~/fastapi-app-clone" ]; then
               git clone git@github.com:your-username/fastapi-app.git ~/fastapi-app-clone
             fi
-            cd ~/fastapi-app
+            cd ~/fastapi-app-clone
             git pull origin main
-            docker-compose down
-            docker-compose up -d --build
